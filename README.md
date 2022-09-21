@@ -9,6 +9,10 @@
 
 > https://github.com/izbean/blog-search/raw/main/jar/blog-search-0.0.1-SNAPSHOT.jar
 
+## 사용한 외부 라이브러리
+- Caffeine(https://github.com/ben-manes/caffeine)
+  - 사용 목적: 로컬 캐싱
+
 ## API 명세
 
 ### URL
