@@ -117,6 +117,21 @@ curl --location --request GET 'http://localhost:8080/search?query=이효리'
 
 > hit 내림차순 정렬 제공
 
+| Name    | Type   | Description |
+|---------|--------|-------------|
+| keyword | String | 검색 키워드      |
+| hit     | Long   | 검색량         |
+
+### Sample
+
+#### Request
+
+```shell
+curl --location --request GET 'http://localhost:8080/search/keywords/top10'
+```
+
+#### Response
+
 ```json
 [
   {
