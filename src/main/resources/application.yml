@@ -1,0 +1,28 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: jdbc:h2:mem:search
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+api:
+  search:
+    naver:
+      blog-search-url: https://openapi.naver.com/v1/search/blog.json
+      client-id: lRZyGFK04l7H45osaMIB
+      client-secret: HeDZrJT7pM
+    kakao:
+      blog-search-url: https://dapi.kakao.com/v2/search/blog
+      api-key: 4fc03a9cebf18a9f9bedf2f71ba35e9d
