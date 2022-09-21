@@ -10,6 +10,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class SearchKeywordScheduler {
 
     private final StatisticsSearchKeywordMinutelyRepository statisticsSearchKeywordMinutelyRepository;
 
+    @Transactional(readOnly = true)
     @Scheduled(fixedDelay = 60 * 1_000)
     public void syncTopSearchKeywordCount() {
         String topSearchKeywordCountKey = CacheType.TOP_SEARCH_KEYWORD_HIT.getName();

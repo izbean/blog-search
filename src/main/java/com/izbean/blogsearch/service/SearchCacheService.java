@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class SearchCacheService {
 
 
     @Cacheable(value = "topSearchKeywords")
+    @Transactional(readOnly = true)
     public List<SearchTop10Response> getHitTop10SearchKeywords() {
         return statisticsSearchKeywordMinutelyRepository.findHitTop10SearchKeywords(Pageable.ofSize(10));
     }
