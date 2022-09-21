@@ -10,10 +10,13 @@
 > https://github.com/izbean/blog-search/raw/main/jar/blog-search-0.0.1-SNAPSHOT.jar
 
 ## 사용한 외부 라이브러리
+
 - Caffeine(https://github.com/ben-manes/caffeine)
-  - 사용 목적: 로컬 캐싱
+    - 사용 목적: 로컬 캐싱
 
 ## API 명세
+
+## 블로그 글 검색
 
 ### URL
 
@@ -94,4 +97,47 @@ curl --location --request GET 'http://localhost:8080/search?query=이효리'
     "query": "검색어는 필수 입력 값 입니다."
   }
 }
+```
+
+---
+
+### 실시간 인기 키워드 TOP 10 조회
+
+### URL
+
+> GET /search/keywords/top10
+
+### Request
+
+#### Parameter
+
+<b>없음</b>
+
+### Response
+
+> hit 내림차순 정렬 제공
+
+```json
+[
+  {
+    "keyword": "이효리1",
+    "hit": 100
+  },
+  {
+    "keyword": "이효리2",
+    "hit": 5
+  },
+  {
+    "keyword": "이효리3",
+    "hit": 4
+  },
+  {
+    "keyword": "이효리4",
+    "hit": 3
+  },
+  {
+    "keyword": "이효리5",
+    "hit": 1
+  }
+]
 ```
