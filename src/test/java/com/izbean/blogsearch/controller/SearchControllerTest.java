@@ -125,4 +125,44 @@ class SearchControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    public void 유효하지_않은_페이지_번호_음수() throws Exception {
+        // given
+        SearchRequest request = SearchRequest.builder()
+                .query("이효리")
+                .page(-1)
+                .size(20)
+                .sort("accuracy")
+                .build();
+
+        // expected
+        mockMvc.perform(MockMvcRequestBuilders.get("/search")
+                        .queryParams(MultiValueMapUtils.convert(objectMapper, request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.message").value("잘못 된 요청 입니다."))
+                .andExpect(jsonPath("$.validation.page").value("결과 페이지 번호는 1~50까지 입력 할 수 있습니다."))
+                .andDo(print());
+    }
+
+    @Test
+    public void 유효하지_않은_페이지_최대_글_개수_음수() throws Exception {
+        // given
+        SearchRequest request = SearchRequest.builder()
+                .query("이효리")
+                .page(1)
+                .size(-1)
+                .sort("accuracy")
+                .build();
+
+        // expected
+        mockMvc.perform(MockMvcRequestBuilders.get("/search")
+                        .queryParams(MultiValueMapUtils.convert(objectMapper, request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value("400"))
+                .andExpect(jsonPath("$.message").value("잘못 된 요청 입니다."))
+                .andExpect(jsonPath("$.validation.size").value("페이지에 보여지는 총 글 개수 설정은 1~50까지 입력 할 수 있습니다."))
+                .andDo(print());
+    }
+
 }
