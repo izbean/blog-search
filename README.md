@@ -13,18 +13,18 @@
 
 ### URL
 
-> GET http://localhost:8080/search
+> GET /search
 
 ### Request
 
 #### Parameter
 
-| Name  | Type    | Description                                                               | Required |
-|-------|---------|---------------------------------------------------------------------------|----------|
-| query | String  | 검색을 원하는 질의어 <br> 특정 블로그 글만 검색하고 싶은 경우, 블로그 url과 검색어를 공백(' ') 구분자로 넣을 수 있음 | O        |
-| sort  | String  | 결과 문서 정렬 방식, accuracy(정확도순) 또는 recency(최신순), 기본 값 accuracy                | X        |
-| page  | Integer | 결과 페이지 번호, 1~50 사이의 값, 기본 값 1                                             | X        |
-| size  | Integer | 한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10                                      | X        |
+| Name  | Type    | Description                                                | Required |
+|-------|---------|------------------------------------------------------------|----------|
+| query | String  | 검색을 원하는 질의어                                                | O        |
+| sort  | String  | 결과 문서 정렬 방식, accuracy(정확도순) 또는 recency(최신순), 기본 값 accuracy | X        |
+| page  | Integer | 결과 페이지 번호, 1~50 사이의 값, 기본 값 1                              | X        |
+| size  | Integer | 한 페이지에 보여질 문서 수, 1~50 사이의 값, 기본 값 10                       | X        |
 
 ### Response
 
@@ -53,7 +53,7 @@
 #### Request
 
 ```shell
-curl --location --request GET 'https://localhost:8080/search?query=이효리'
+curl --location --request GET 'http://localhost:8080/search?query=이효리'
 ```
 
 #### Response
