@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 @Data
 @NoArgsConstructor
@@ -19,9 +20,11 @@ public class SearchRequest {
     private String sort = "accuracy";
 
     @Max(value = 50, message = "결과 페이지 번호는 1~50까지 입력 할 수 있습니다.")
+    @Positive(message = "결과 페이지 번호는 1~50까지 입력 할 수 있습니다.")
     private Integer page = 1;
 
     @Max(value = 50, message = "페이지에 보여지는 총 글 개수 설정은 1~50까지 입력 할 수 있습니다.")
+    @Positive(message = "페이지에 보여지는 총 글 개수 설정은 1~50까지 입력 할 수 있습니다.")
     private Integer size = 10;
 
     @Builder
