@@ -1,6 +1,7 @@
 package com.izbean.blogsearch.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
+import com.izbean.blogsearch.cache.SearchCacheManager;
 import com.izbean.blogsearch.config.cache.CacheType;
 import com.izbean.blogsearch.domain.StatisticsSearchKeywordMinutelyRepository;
 import com.izbean.blogsearch.dto.request.SearchRequest;
@@ -21,40 +22,21 @@ import java.util.List;
 @Service
 public class SearchCacheService {
 
-    private final CacheManager cacheManager;
+    private final SearchCacheManager searchCacheManager;
 
     private final StatisticsSearchKeywordMinutelyRepository statisticsSearchKeywordMinutelyRepository;
 
     public SearchRequest getUserSearchKeywordCache(String ip, String query) {
-        CaffeineCache cache = (CaffeineCache) cacheManager.getCache(CacheType.USER_SEARCH_KEYWORD.getName());
-
-        if (cache == null)
-            return null;
-
-        return (SearchRequest) cache.getNativeCache().getIfPresent(query + "_" + ip);
+        return searchCacheManager.getUserSearchRequest(ip, query);
     }
 
-    @Cacheable(value = "usersSearchKeywords", key = "#request.query + '_' + #ip")
-    public SearchRequest putUserSearchKeywordCache(String ip, SearchRequest request) {
-        return request;
+    public void putUserSearchKeywordCache(String ip, SearchRequest request) {
+        searchCacheManager.createUserSearchRequest(ip, request);
     }
 
     public void increaseSearchKeywordCountCache(String keyword) {
-        CaffeineCache cache = (CaffeineCache) cacheManager.getCache(CacheType.TOP_SEARCH_KEYWORD_HIT.getName());
-
-        if (cache == null) {
-            return;
-        }
-
-        Cache<Object, Object> nativeCache = cache.getNativeCache();
-
-        Object value = nativeCache.getIfPresent(keyword) != null ? nativeCache.getIfPresent(keyword) : 0L;
-
-        if (value instanceof Long) {
-            nativeCache.put(keyword, ((Long) value) + 1);
-        }
+        searchCacheManager.increaseSearchKeywordHit(keyword);
     }
-
 
     @Cacheable(value = "topSearchKeywords")
     @Transactional(readOnly = true)
