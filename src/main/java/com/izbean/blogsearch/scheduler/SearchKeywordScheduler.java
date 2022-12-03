@@ -25,7 +25,7 @@ public class SearchKeywordScheduler {
 
     private final StatisticsSearchKeywordMinutelyRepository statisticsSearchKeywordMinutelyRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Scheduled(fixedDelay = 60 * 1_000)
     public void syncTopSearchKeywordCount() {
         String topSearchKeywordCountKey = CacheType.TOP_SEARCH_KEYWORD_HIT.getName();
